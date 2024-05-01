@@ -1,6 +1,6 @@
 {
   "name": "teleport-vue2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "<Teleport> Component for Vue2",
   "type": "module",
   "files": [

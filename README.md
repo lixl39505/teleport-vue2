@@ -1,6 +1,6 @@
 # Intro
 
-Just like using '<Teleport>' in Vue3. Support for dynamic binding of 'to' and 'disabled' props.
+Just like using ['<Teleport>'](https://vuejs.org/guide/built-ins/teleport.html) in Vue3. Support for dynamic binding of 'to' and 'disabled' props.
 
 ## Cautions
 
