@@ -21,7 +21,7 @@ Due to the limitation of Vue2, '<Teleport>' can only contain exactly one root el
   </div>
 </template>
 <script setup>
-import Teleport from './components/Teleport.vue'
+import Teleport from 'teleport-vue2'
 
 const disabled = ref(false)
 const open = ref(false)
