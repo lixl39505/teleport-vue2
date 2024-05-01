@@ -23,41 +23,32 @@ export default {
   },
   methods: {
     onEnter() {
-      let children = this.$slots.default || []
-      this.rootEl = children[0]?.elm
+      // @ts-ignore
+      this.rootEl = this._vnode.elm
       this.originalEl = this.$vnode.elm?.parentNode || undefined
+
+      this.disabled ? this.restore() : this.telport()
     },
     restore() {
-      if (!this.rootEl || !this.originalEl) return
       if (!this.teleported) return
-      this.originalEl.insertBefore(this.rootEl, this.dumb)
-      this.dumb.parentNode?.removeChild(this.dumb)
-      this.$vnode.elm = this.rootEl
       this.teleported = false
+      this.$vnode.elm = this.rootEl
+      if (!this.originalEl) return
+      this.rootEl && this.originalEl.insertBefore(this.rootEl, this.dumb)
+      this.dumb.parentNode?.removeChild(this.dumb)
     },
-    telport(target: Node) {
+    telport() {
       if (!this.rootEl || !this.originalEl) return
+      let targetEl = typeof this.to === 'string' ? document.querySelector(this.to) : this.to
+      if (!targetEl) return
       if (!this.teleported) this.originalEl.insertBefore(this.dumb, this.rootEl)
-      target.appendChild(this.rootEl)
+      targetEl.appendChild(this.rootEl)
       this.$vnode.elm = this.dumb
       this.teleported = true
     },
   },
   mounted() {
     this.onEnter()
-    if (!this.rootEl || !this.originalEl) return
-
-    this.$watch(
-      () => [this.to, this.disabled],
-      () => {
-        let targetEl = typeof this.to === 'string' ? document.querySelector(this.to) : this.to
-        if (!targetEl) return
-        this.disabled ? this.restore() : this.telport(targetEl)
-      },
-      {
-        immediate: true,
-      },
-    )
   },
   updated() {
     this.onEnter()
