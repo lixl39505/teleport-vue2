@@ -1,10 +1,10 @@
 # Intro
 
-Just like using ['<Teleport>'](https://vuejs.org/guide/built-ins/teleport.html) in Vue3. Support for dynamic binding of 'to' and 'disabled' props.
+Just like using [`<Teleport>`](https://vuejs.org/guide/built-ins/teleport.html) in Vue3. Support for dynamic binding of 'to' and 'disabled' props.
 
 ## Cautions
 
-Due to the limitation of Vue2, '<Teleport>' can only contain exactly one root element.
+Due to the limitation of Vue2, `<Teleport>` can only contain exactly one root element.
 
 ## example
 
