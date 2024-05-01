@@ -1,0 +1,36 @@
+{
+  "name": "teleport-vue2",
+  "version": "1.0.0",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/teleport-vue2.umd.cjs",
+  "module": "./dist/teleport-vue2.js",
+  "exports": {
+    ".": {
+      "import": "./dist/teleport-vue2.js",
+      "require": "./dist/teleport-vue2.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force"
+  },
+  "dependencies": {
+    "vue": "^2.7.14"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.12.5",
+    "@vitejs/plugin-legacy": "^5.3.2",
+    "@vitejs/plugin-vue2": "^2.3.1",
+    "@vue/tsconfig": "^0.5.1",
+    "npm-run-all2": "^6.1.2",
+    "terser": "^5.29.2",
+    "typescript": "~5.4.0",
+    "vite": "^5.2.8",
+    "vue-tsc": "^2.0.11"
+  }
+}
