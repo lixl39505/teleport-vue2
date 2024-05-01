@@ -1,5 +1,12 @@
 <template>
   <div v-if="isAlive">
+    <button @click="open = true">Open Modal</button>
+    <Teleport to="body" :disabled="disabled">
+      <div v-if="open" class="modal">
+        <p>Hello from the modal!</p>
+        <button @click="open = false">Close</button>
+      </div>
+    </Teleport>
     <div v-for="i in list" :key="i">
       <button>{{ i }}</button>
     </div>
@@ -59,16 +66,21 @@ const empty = ref(false)
 function onShow() {
   empty.value = !empty.value
 }
+
+const open = ref(false) // bug open -> close -> disable -> open -> error
 </script>
 <style>
-html,
-body {
-  width: auto;
-  height: auto;
-}
 .b {
   position: fixed;
   top: 100px;
   left: 100px;
+}
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 20%;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
 }
 </style>

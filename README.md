@@ -1,33 +1,39 @@
-# vite-project
+# Intro
 
-This template should help get you started developing with Vue 3 in Vite.
+Just like using '<Teleport>' in Vue3. Support for dynamic binding of 'to' and 'disabled' props.
 
-## Recommended IDE Setup
+## Cautions
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Due to the limitation of Vue2, '<Teleport>' can only contain exactly one root element.
 
-## Type Support for `.vue` Imports in TS
+## example
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```vue
+<template>
+  <div>
+    <button @click="open = true">Open Modal</button>
+    <Teleport to="body" :disabled="disabled">
+      <div v-if="open" class="modal">
+        <p>Hello from the modal!</p>
+        <button @click="open = false">Close</button>
+      </div>
+    </Teleport>
+  </div>
+</template>
+<script setup>
+import Teleport from './components/Teleport.vue'
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
+const disabled = ref(false)
+const open = ref(false)
+</script>
+<style>
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 20%;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+}
+</style>
 ```
