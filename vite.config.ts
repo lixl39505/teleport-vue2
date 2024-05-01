@@ -3,10 +3,20 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue2 from '@vitejs/plugin-vue2'
 import { getBabelOutputPlugin } from '@rollup/plugin-babel'
+import dts from 'vite-plugin-dts'
+import ts from 'typescript'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue2()],
+  plugins: [
+    vue2(),
+    dts({
+      rollupTypes: true,
+      compilerOptions: {
+        moduleResolution: ts.ModuleResolutionKind.NodeNext, // vue2 是 commonjs，无法通过 esnext 加载
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

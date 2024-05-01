@@ -1,5 +1,7 @@
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'Teleport',
   abstract: true,
   props: {
@@ -61,5 +63,5 @@ export default {
     let first = this.$slots.default?.[0]
     return first
   },
-}
+})
 </script>
