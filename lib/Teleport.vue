@@ -5,20 +5,25 @@ export default defineComponent({
   name: 'Teleport',
   abstract: true,
   props: {
-    to: [String, HTMLElement],
+    to: {
+      type: [String, HTMLElement],
+      required: true,
+    },
     disabled: Boolean,
   },
   data() {
     let nonReactive = {
       teleported: false,
+      lastTo: '',
       rootEl: undefined,
       originalEl: undefined,
       dumb: document.createComment(' teleport '),
     } as {
+      teleported: boolean
+      lastTo: string | HTMLElement
       rootEl?: Node
       originalEl?: Node
       dumb: Node
-      teleported: boolean
     }
     Object.preventExtensions(nonReactive)
     return nonReactive
@@ -27,33 +32,39 @@ export default defineComponent({
     onEnter() {
       // @ts-ignore
       this.rootEl = this._vnode.elm
-      this.originalEl = this.$vnode.elm?.parentNode || undefined
+      // @ts-ignore
+      this.originalEl = this.teleported ? this.dumb?.parentNode : this.rootEl?.parentNode 
 
       this.disabled ? this.restore() : this.telport()
     },
     restore() {
       if (!this.teleported) return
-      this.teleported = false
       this.$vnode.elm = this.rootEl
+      this.teleported = false
+      this.lastTo = ''
+
       if (!this.originalEl) return
       this.rootEl && this.originalEl.insertBefore(this.rootEl, this.dumb)
       this.dumb.parentNode?.removeChild(this.dumb)
     },
     telport() {
       if (!this.rootEl || !this.originalEl) return
-      let targetEl = typeof this.to === 'string' ? document.querySelector(this.to) : this.to
-      if (!targetEl) return
       if (!this.teleported) this.originalEl.insertBefore(this.dumb, this.rootEl)
-      targetEl.appendChild(this.rootEl)
       this.$vnode.elm = this.dumb
       this.teleported = true
+
+      let targetEl
+      if (this.to !== this.lastTo) targetEl = typeof this.to === 'string' ? document.querySelector(this.to) : this.to
+      if (!targetEl) return
+      targetEl.appendChild(this.rootEl)
+      this.lastTo = this.to
     },
   },
   mounted() {
     this.onEnter()
   },
   updated() {
-    this.onEnter()
+    this.onEnter() // 除了 to、disabled 外，rootEl 以及 originalEl 也可能发生变化
   },
   beforeDestroy() {
     this.dumb.parentNode?.removeChild(this.dumb)

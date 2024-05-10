@@ -1,10 +1,14 @@
 <template>
   <div v-if="isAlive">
-    <button @click="open = true">Open Modal</button>
-    <Modal v-model="open" :disabled="disabled">
+    <button @click="open1 = true">Open Modal</button>
+    <Modal v-model="open1" :disabled="disabled" @close="open2 = false">
       <template #default="{ user }">
         <p>Hello from the modal!</p>
         <Profile :user="user"></Profile>
+        <button @click="open2 = true">Open Modal</button>
+        <Modal v-model="open2" :disabled="disabled" style="top: 60%">
+          <p>Inner Modal</p>
+        </Modal>
       </template>
     </Modal>
     <div v-for="i in list" :key="i">
@@ -72,7 +76,8 @@ function onShow() {
   empty.value = !empty.value
 }
 
-const open = ref(false) // bug open -> close -> disable -> open -> error
+const open1 = ref(false)
+const open2 = ref(false)
 </script>
 <style>
 .b {

@@ -2,7 +2,14 @@
   <Teleport to="body" :disabled="disabled">
     <div v-if="value" class="modal">
       <slot :user="user"></slot>
-      <button @click="$emit('input', false)">Close</button>
+      <button
+        @click="
+          $emit('input', false)
+          $emit('close')
+        "
+      >
+        Close
+      </button>
     </div>
   </Teleport>
 </template>
