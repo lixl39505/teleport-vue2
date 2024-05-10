@@ -20,12 +20,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '~': fileURLToPath(new URL('./lib', import.meta.url)),
     },
   },
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: resolve(__dirname, 'lib/index.ts'),
       name: 'TeleportVue2',
       // the proper extensions will be added
       fileName: 'teleport-vue2',

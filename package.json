@@ -1,10 +1,11 @@
 {
   "name": "teleport-vue2",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "<Teleport> Component for Vue2",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "main": "./dist/teleport-vue2.umd.cjs",
   "module": "./dist/teleport-vue2.js",

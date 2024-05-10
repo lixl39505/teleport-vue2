@@ -30,16 +30,12 @@
 </template>
 <script lang="ts" setup>
 import { ref, provide } from 'vue'
-import Teleport from '../components/Teleport.vue'
-import Modal from './Modal.vue'
-import Profile from './Profile.vue'
+import Teleport from '~/Teleport.vue'
+import Modal from '../components/Modal.vue'
+import Profile from '../components/Profile.vue'
 
 // Test provider/inject
 provide('user', { name: 'foo' })
-
-export interface UserProfile {
-  name: string
-}
 
 const list = ref(['button1'])
 let count = 1

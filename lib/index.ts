@@ -1,3 +1,3 @@
-import Teleport from '../lib/Teleport.vue'
+import Teleport from './Teleport.vue'
 export { Teleport }
 export default Teleport

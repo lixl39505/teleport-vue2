@@ -9,8 +9,11 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-import Teleport from '../components/Teleport.vue'
-import type { UserProfile } from './Test.vue'
+import Teleport from '../../lib/Teleport.vue'
+
+export interface UserProfile {
+  name: string
+}
 
 defineProps({
   value: {
